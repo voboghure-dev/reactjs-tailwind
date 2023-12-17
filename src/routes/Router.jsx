@@ -11,36 +11,36 @@ import CategoryAdd from '../components/modules/category/CategoryAdd';
 import CategoryEdit from '../components/modules/category/CategoryEdit';
 
 const Router = createBrowserRouter([
-	{
-		path: '/dashboard',
-		element: (
-			<Protected>
-				<Master />
-			</Protected>
-		),
-		children: [
-			{
-				path: '/dashboard',
-				element: <Dashboard />,
-			},
-			{
-				path: '/dashboard/category/create',
-				element: <CategoryAdd />,
-			},
-			{
-				path: '/dashboard/category/edit/:id',
-				element: <CategoryEdit />,
-			},
-			{
-				path: '/dashboard/category',
-				element: <CategoryList />,
-			},
-			{
-				path: '/dashboard/error-500',
-				element: <Error500 />,
-			},
-		],
-	},
+	// {
+	// 	path: '/dashboard',
+	// 	element: (
+	// 		<Protected>
+	// 			<Master />
+	// 		</Protected>
+	// 	),
+	// 	children: [
+	// 		{
+	// 			path: '/dashboard',
+	// 			element: <Dashboard />,
+	// 		},
+	// 		{
+	// 			path: '/dashboard/category/create',
+	// 			element: <CategoryAdd />,
+	// 		},
+	// 		{
+	// 			path: '/dashboard/category/edit/:id',
+	// 			element: <CategoryEdit />,
+	// 		},
+	// 		{
+	// 			path: '/dashboard/category',
+	// 			element: <CategoryList />,
+	// 		},
+	// 		{
+	// 			path: '/dashboard/error-500',
+	// 			element: <Error500 />,
+	// 		},
+	// 	],
+	// },
 	// {
 	// 	path: '/',
 	// 	element: (
@@ -65,6 +65,22 @@ const Router = createBrowserRouter([
 		children: [
 			{
 				path: '/',
+				element: <Dashboard />,
+			},
+			{
+				path: '/dashboard',
+				element: <Dashboard />,
+			},
+			{
+				path: '/product',
+				element: <Dashboard />,
+			},
+			{
+				path: '/order',
+				element: <Dashboard />,
+			},
+			{
+				path: '/invoice',
 				element: <Dashboard />,
 			},
 		],
