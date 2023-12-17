@@ -41,17 +41,31 @@ const Router = createBrowserRouter([
 			},
 		],
 	},
+	// {
+	// 	path: '/',
+	// 	element: (
+	// 		<Public>
+	// 			<Auth />
+	// 		</Public>
+	// 	),
+	// 	children: [
+	// 		{
+	// 			path: '/',
+	// 			element: <Login />,
+	// 		},
+	// 	],
+	// },
 	{
 		path: '/',
 		element: (
 			<Public>
-				<Auth />
+				<Master />
 			</Public>
 		),
 		children: [
 			{
 				path: '/',
-				element: <Login />,
+				element: <Dashboard />,
 			},
 		],
 	},

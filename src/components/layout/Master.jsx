@@ -1,30 +1,15 @@
-import Nav from '../shared/Nav';
-import Sidebar from '../shared/Sidebar';
-import Footer from '../shared/Footer';
 import { HelmetProvider } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
+import Sidebar from '../shared/Sidebar';
 
 const Master = () => {
 	return (
-		<>
-			<Nav />
-
-			<div id='layoutSidenav'>
-				<Sidebar />
-
-				<div id='layoutSidenav_content'>
-					<main>
-						<div className='container-fluid px-4'>
-							<HelmetProvider>
-								<Outlet />
-							</HelmetProvider>
-						</div>
-					</main>
-
-					<Footer />
-				</div>
-			</div>
-		</>
+		<div className='flex flex-row bg-neutral-100 h-screen w-screen overflow-hidden'>
+			<Sidebar />
+			<HelmetProvider>
+				<Outlet />
+			</HelmetProvider>
+		</div>
 	);
 };
 
