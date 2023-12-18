@@ -83,6 +83,14 @@ const Router = createBrowserRouter([
 				path: '/invoice',
 				element: <Dashboard />,
 			},
+			{
+				path: '/build',
+				element: <Dashboard />,
+			},
+			{
+				path: '/build/submenu1',
+				element: <Dashboard />,
+			},
 		],
 	},
 ]);

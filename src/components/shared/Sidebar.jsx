@@ -1,75 +1,193 @@
-import React from 'react';
-import classNames from 'classnames';
-import logo from '../../assets/img/logo.png';
-import { Link, useLocation } from 'react-router-dom';
-import { HiHome, HiCube, HiShoppingCart, HiDocument, HiOutlineLogout } from 'react-icons/hi';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { NavLink, useLocation, useRoutes } from 'react-router-dom';
 
-function Sidebar() {
-	const linkClass =
-		'flex items-center gap-2 font-light px-3 py-2 hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base';
+// * React icons
+import { IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowDown } from "react-icons/io";
+import { SlSettings } from 'react-icons/sl';
+import { AiOutlineAppstore } from 'react-icons/ai';
+import { BsPerson } from 'react-icons/bs';
+import { HiOutlineDatabase } from 'react-icons/hi';
+import { TbReportAnalytics } from 'react-icons/tb';
+import { RiBuilding3Line } from 'react-icons/ri';
+import { useMediaQuery } from 'react-responsive';
+import { MdMenu } from 'react-icons/md';
+
+const Sidebar = () => {
+	let isTabletMid = useMediaQuery({ query: '(max-width: 768px)' });
+	const [open, setOpen] = useState(isTabletMid ? false : true);
+	const [subMenuOpen, setSubMenuOpen] = useState(false);
+	const sidebarRef = useRef();
 	const { pathname } = useLocation();
 
+	const Nav_animation = isTabletMid
+		? {
+				open: {
+					x: 0,
+					width: '16rem',
+					transition: {
+						damping: 40,
+					},
+				},
+				closed: {
+					x: -250,
+					width: 0,
+					transition: {
+						damping: 40,
+						delay: 0.15,
+					},
+				},
+		  }
+		: {
+				open: {
+					width: '16rem',
+					transition: {
+						damping: 40,
+					},
+				},
+				closed: {
+					width: '4rem',
+					transition: {
+						damping: 40,
+					},
+				},
+		  };
+
+	useEffect(() => {
+		if (isTabletMid) {
+			setOpen(false);
+		} else {
+			setOpen(true);
+		}
+	}, [isTabletMid]);
+
+	useEffect(() => {
+		isTabletMid && setOpen(false);
+	}, [pathname]);
+
 	return (
-		<div className='flex flex-col bg-neutral-900 w-60 p-3 text-white'>
-			<div className='flex flex-col items-center px-1 py-3'>
-				<img src={logo} alt='Logo' className='h-16' />
-			</div>
-			<div className='flex flex-1 flex-col py-8 gap-0.5 pt-2 border-t border-neutral-700'>
-				<div>
-					<Link
-						to={'/dashboard'}
-						className={classNames(
-							pathname == '/dashboard' ? 'bg-neutral-700 text-white' : 'text-neutral-400',
-							linkClass
-						)}
-					>
-						<HiHome /> Dashboard
-					</Link>
+		<div>
+			<div
+				onClick={() => setOpen(false)}
+				className={`md:hidden fixed inset-0 max-h-screen z-[998] bg-black/50 ${open ? 'block' : 'hidden'} `}
+			></div>
+			<motion.div
+				ref={sidebarRef}
+				variants={Nav_animation}
+				initial={{ x: isTabletMid ? -250 : 0 }}
+				animate={open ? 'open' : 'closed'}
+				className=' bg-white text-gray shadow-xl z-[999] max-w-[16rem]  w-[16rem] overflow-hidden md:relative fixed h-screen '
+			>
+				<div className='flex items-center gap-2.5 font-medium border-b py-3 border-slate-300  mx-3'>
+					<img src='https://img.icons8.com/color/512/firebase.png' width={45} alt='' />
+					<span className='text-xl whitespace-pre'>Fireball</span>
 				</div>
-				<div>
-					<Link
-						to={'/product'}
-						className={classNames(
-							pathname == '/product' ? 'bg-neutral-700 text-white' : 'text-neutral-400',
-							linkClass
+
+				<div className='flex flex-col  h-full'>
+					<ul className='whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1  font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100   md:h-[68%] h-[70%]'>
+						<li>
+							<NavLink to={'/'} className='link'>
+								<AiOutlineAppstore size={23} className='min-w-max' />
+								All Apps
+							</NavLink>
+						</li>
+						<li>
+							<NavLink to={'/authentication'} className='link'>
+								<BsPerson size={23} className='min-w-max' />
+								Authentication
+							</NavLink>
+						</li>
+						<li>
+							<NavLink to={'/stroage'} className='link'>
+								<HiOutlineDatabase size={23} className='min-w-max' />
+								Stroage
+							</NavLink>
+						</li>
+
+						{(open || isTabletMid) && (
+							<div className='border-y py-5 border-slate-300 '>
+								<small className='pl-3 text-slate-500 inline-block mb-2'>Product categories</small>
+								<div className='flex flex-col gap-1'>
+									<li
+										className={`link ${pathname.includes('build') && 'text-blue-600'}`}
+										onClick={() => setSubMenuOpen(!subMenuOpen)}
+									>
+										<RiBuilding3Line size={23} className='min-w-max' />
+										<p className='flex-1 capitalize'>BUILD</p>
+										<IoIosArrowDown className={` ${subMenuOpen && 'rotate-180'} duration-200 `} />
+									</li>
+									<motion.ul
+										animate={
+											subMenuOpen
+												? {
+														height: 'fit-content',
+												  }
+												: {
+														height: 0,
+												  }
+										}
+										className='flex h-0 flex-col pl-14 text-[0.8rem] font-normal overflow-hidden'
+									>
+										<li>
+											<NavLink
+												to={`/dashboard/build/submenu1`}
+												className='link !bg-transparent capitalize'
+											>
+												Sub Menu 1
+											</NavLink>
+										</li>
+									</motion.ul>
+								</div>
+							</div>
 						)}
-					>
-						<HiCube /> Product
-					</Link>
+						<li>
+							<NavLink to={'/settings'} className='link'>
+								<SlSettings size={23} className='min-w-max' />
+								Settings
+							</NavLink>
+						</li>
+					</ul>
+					{open && (
+						<div className='flex-1 text-sm z-50  max-h-48 my-auto  whitespace-pre   w-full  font-medium  '>
+							<div className='flex border-y border-slate-300 p-4 items-center justify-between'>
+								<div>
+									<p>Spark</p>
+									<small>No-cost $0/month</small>
+								</div>
+								<p className='text-teal-500 py-1.5 px-3 text-xs bg-teal-50 rounded-xl'>Upgrade</p>
+							</div>
+						</div>
+					)}
 				</div>
-				<div>
-					<Link
-						to={'/order'}
-						className={classNames(
-							pathname == '/order' ? 'bg-neutral-700 text-white' : 'text-neutral-400',
-							linkClass
-						)}
-					>
-						<HiShoppingCart /> Order
-					</Link>
-				</div>
-				<div>
-					<Link
-						to={'/invoice'}
-						className={classNames(
-							pathname == '/invoice' ? 'bg-neutral-700 text-white' : 'text-neutral-400',
-							linkClass
-						)}
-					>
-						<HiDocument /> Invoice
-					</Link>
-				</div>
-			</div>
-			<div className='flex flex-col gap-0.5 pt-2 border-t border-neutral-700'>
-				<Link to={'/logout'} className={classNames(linkClass, 'cursor-pointer text-red-500')}>
-					<span className='text-xl'>
-						<HiOutlineLogout />
-					</span>
-					Logout
-				</Link>
+				<motion.div
+					onClick={() => {
+						setOpen(!open);
+					}}
+					animate={
+						open
+							? {
+									x: 0,
+									y: 0,
+									rotate: 0,
+							  }
+							: {
+									x: -10,
+									y: -200,
+									rotate: 180,
+							  }
+					}
+					transition={{ duration: 0 }}
+					className='absolute w-fit h-fit md:block z-50 hidden right-2 bottom-3 cursor-pointer'
+				>
+					<IoIosArrowBack size={25} />
+				</motion.div>
+			</motion.div>
+			<div className='m-3 md:hidden  ' onClick={() => setOpen(true)}>
+				<MdMenu size={25} />
 			</div>
 		</div>
 	);
-}
+};
 
 export default Sidebar;
