@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { NavLink, useLocation, useRoutes } from 'react-router-dom';
+import logo from '../../assets/img/logo.png';
 
 // * React icons
 import { IoIosArrowBack } from 'react-icons/io';
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown } from 'react-icons/io';
 import { SlSettings } from 'react-icons/sl';
 import { AiOutlineAppstore } from 'react-icons/ai';
 import { BsPerson } from 'react-icons/bs';
@@ -79,29 +80,28 @@ const Sidebar = () => {
 				animate={open ? 'open' : 'closed'}
 				className=' bg-white text-gray shadow-xl z-[999] max-w-[16rem]  w-[16rem] overflow-hidden md:relative fixed h-screen '
 			>
-				<div className='flex items-center gap-2.5 font-medium border-b py-3 border-slate-300  mx-3'>
-					<img src='https://img.icons8.com/color/512/firebase.png' width={45} alt='' />
-					<span className='text-xl whitespace-pre'>Fireball</span>
+				<div className='flex items-center gap-2.5 font-medium border-b py-3 border-slate-300 mx-3'>
+					<img src={logo} alt='Logo' className='w-40' />
 				</div>
 
-				<div className='flex flex-col  h-full'>
+				<div className='flex flex-col h-full'>
 					<ul className='whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1  font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100   md:h-[68%] h-[70%]'>
 						<li>
-							<NavLink to={'/'} className='link'>
+							<NavLink to={'/dashboard'} className='link'>
 								<AiOutlineAppstore size={23} className='min-w-max' />
-								All Apps
+								Dashboard
 							</NavLink>
 						</li>
 						<li>
-							<NavLink to={'/authentication'} className='link'>
+							<NavLink to={'/product'} className='link'>
 								<BsPerson size={23} className='min-w-max' />
-								Authentication
+								Product
 							</NavLink>
 						</li>
 						<li>
-							<NavLink to={'/stroage'} className='link'>
+							<NavLink to={'/order'} className='link'>
 								<HiOutlineDatabase size={23} className='min-w-max' />
-								Stroage
+								Order
 							</NavLink>
 						</li>
 
@@ -130,10 +130,7 @@ const Sidebar = () => {
 										className='flex h-0 flex-col pl-14 text-[0.8rem] font-normal overflow-hidden'
 									>
 										<li>
-											<NavLink
-												to={`/dashboard/build/submenu1`}
-												className='link !bg-transparent capitalize'
-											>
+											<NavLink to={`/build/submenu1`} className='link !bg-transparent capitalize'>
 												Sub Menu 1
 											</NavLink>
 										</li>
@@ -148,17 +145,6 @@ const Sidebar = () => {
 							</NavLink>
 						</li>
 					</ul>
-					{open && (
-						<div className='flex-1 text-sm z-50  max-h-48 my-auto  whitespace-pre   w-full  font-medium  '>
-							<div className='flex border-y border-slate-300 p-4 items-center justify-between'>
-								<div>
-									<p>Spark</p>
-									<small>No-cost $0/month</small>
-								</div>
-								<p className='text-teal-500 py-1.5 px-3 text-xs bg-teal-50 rounded-xl'>Upgrade</p>
-							</div>
-						</div>
-					)}
 				</div>
 				<motion.div
 					onClick={() => {
@@ -183,7 +169,7 @@ const Sidebar = () => {
 					<IoIosArrowBack size={25} />
 				</motion.div>
 			</motion.div>
-			<div className='m-3 md:hidden  ' onClick={() => setOpen(true)}>
+			<div className='m-3 md:hidden ' onClick={() => setOpen(true)}>
 				<MdMenu size={25} />
 			</div>
 		</div>

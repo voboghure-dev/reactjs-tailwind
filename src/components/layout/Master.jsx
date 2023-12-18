@@ -4,8 +4,9 @@ import Sidebar from '../shared/Sidebar';
 
 const Master = () => {
 	return (
-		<div className='flex flex-row bg-neutral-100 h-screen w-screen overflow-hidden'>
+		<div className='flex bg-neutral-100 gap-5'>
 			<Sidebar />
+
 			<HelmetProvider>
 				<Outlet />
 			</HelmetProvider>
