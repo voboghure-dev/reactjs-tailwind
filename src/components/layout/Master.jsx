@@ -1,6 +1,6 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../shared/Sidebar';
+import Sidebar from '../modules/sidebar';
 
 const Master = () => {
 	return (
