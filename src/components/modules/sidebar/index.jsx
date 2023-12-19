@@ -22,35 +22,12 @@ const Sidebar = () => {
 
 	const Nav_animation = isTabletMid
 		? {
-				open: {
-					x: 0,
-					width: '16rem',
-					transition: {
-						damping: 40,
-					},
-				},
-				closed: {
-					x: -250,
-					width: 0,
-					transition: {
-						damping: 40,
-						delay: 0.15,
-					},
-				},
+				open: { x: 0, width: '16rem', transition: { damping: 40 } },
+				closed: { x: -250, width: 0, transition: { damping: 40, delay: 0.15 } },
 		  }
 		: {
-				open: {
-					width: '16rem',
-					transition: {
-						damping: 40,
-					},
-				},
-				closed: {
-					width: '4rem',
-					transition: {
-						damping: 40,
-					},
-				},
+				open: { width: '16rem', transition: { damping: 40 } },
+				closed: { width: '4rem', transition: { damping: 40 } },
 		  };
 
 	useEffect(() => {
@@ -144,32 +121,6 @@ const Sidebar = () => {
 								</div>
 							</div>
 						)}
-
-						<div className='border-t py-5 border-slate-300'>
-							{(open || isTabletMid) && (
-								<small className='pl-3 text-slate-200 inline-block mb-2 uppercase'>Management</small>
-							)}
-							<div className='flex flex-col gap-1'>
-								<li
-									className={`link ${pathname.includes('build') && 'text-blue-600'}`}
-									onClick={() => setSubMenuOpen(!subMenuOpen)}
-								>
-									<RiBuilding3Line size={23} className='min-w-max' />
-									<p className='flex-1 capitalize text-slate-200'>BUILD</p>
-									<IoIosArrowDown className={`${subMenuOpen && 'rotate-180'} duration-200`} />
-								</li>
-								<motion.ul
-									animate={subMenuOpen ? { height: 'fit-content' } : { height: 0 }}
-									className='flex h-0 flex-col pl-14 text-[0.8rem] font-normal overflow-hidden'
-								>
-									<li>
-										<NavLink to={`/build/submenu1`} className='link !bg-transparent capitalize'>
-											Sub Menu 1
-										</NavLink>
-									</li>
-								</motion.ul>
-							</div>
-						</div>
 
 						<li>
 							<NavLink to={'/settings'} className='link'>
